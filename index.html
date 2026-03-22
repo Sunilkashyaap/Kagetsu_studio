@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="shortcut icon" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
+    <title>Kagetsu Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Dancing+Script:wght@400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+      #preloader {
+        position: fixed;
+        inset: 0;
+        z-index: 999999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: #1C2318;
+      }
+      .pre-bg {
+        position: absolute;
+        inset: 0;
+        background: #1C2318;
+        z-index: 0;
+      }
+      .pre-bg::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cpath d='M0 100 Q150 50 300 100 Q450 150 600 100' fill='none' stroke='%232d3a28' stroke-width='1' opacity='0.4'/%3E%3Cpath d='M0 200 Q150 150 300 200 Q450 250 600 200' fill='none' stroke='%232d3a28' stroke-width='1' opacity='0.4'/%3E%3Cpath d='M0 300 Q150 250 300 300 Q450 350 600 300' fill='none' stroke='%232d3a28' stroke-width='1' opacity='0.4'/%3E%3Cpath d='M0 400 Q150 350 300 400 Q450 450 600 400' fill='none' stroke='%232d3a28' stroke-width='1' opacity='0.4'/%3E%3Cpath d='M0 500 Q150 450 300 500 Q450 550 600 500' fill='none' stroke='%232d3a28' stroke-width='1' opacity='0.4'/%3E%3C/svg%3E");
+        opacity: 0.3;
+        pointer-events: none;
+      }
+      .pre-logo {
+        position: relative;
+        z-index: 2;
+        margin-bottom: 24px;
+      }
+      .pre-svg {
+        width: 160px;
+        height: 110px;
+      }
+      .pre-name {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        margin-bottom: 48px;
+        overflow: hidden;
+      }
+      .pre-kag,
+      .pre-etsu {
+        font-family: 'Playfair Display', serif;
+        font-weight: 700;
+        font-size: clamp(3rem, 8vw, 6rem);
+        color: #F0EDE6;
+        line-height: 0.9;
+        display: inline-block;
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      .pre-studio {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 11px;
+        letter-spacing: 0.5em;
+        text-transform: uppercase;
+        color: #C8F135;
+        margin-top: 8px;
+        opacity: 0;
+      }
+      .pre-bar-wrap {
+        position: relative;
+        z-index: 2;
+        width: clamp(200px, 30vw, 320px);
+        height: 1px;
+        background: rgba(240,237,230,0.1);
+        border-radius: 999px;
+        overflow: hidden;
+      }
+      .pre-bar {
+        height: 100%;
+        width: 0%;
+        background: #C8F135;
+        border-radius: 999px;
+        box-shadow: 0 0 12px rgba(200,241,53,0.6);
+        transition: none;
+      }
+      .pre-counter {
+        position: relative;
+        z-index: 2;
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        color: rgba(240,237,230,0.3);
+        margin-top: 12px;
+      }
+      body.loading #root,
+      body.loading .main-content {
+        opacity: 0;
+      }
+      #root {
+        transition: opacity 0.6s ease;
+      }
+      #contact-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(15, 26, 12, 0.85);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+      #contact-modal.active {
+        opacity: 1;
+        pointer-events: all;
+      }
+      .modal-box {
+        background: #1C2318;
+        border: 1px solid rgba(200,241,53,0.15);
+        border-radius: 20px;
+        padding: 52px 48px;
+        width: min(580px, 90vw);
+        position: relative;
+        transform: translateY(30px);
+        transition: transform 0.4s ease;
+      }
+      #contact-modal.active .modal-box {
+        transform: translateY(0);
+      }
+      .modal-close-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 36px;
+        height: 36px;
+        border: 1px solid rgba(240,237,230,0.2);
+        border-radius: 50%;
+        color: #F0EDE6;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        background: transparent;
+        transition: all 0.2s;
+        font-size: 20px;
+        line-height: 1;
+      }
+      .modal-close-btn:hover {
+        border-color: #C8F135;
+        color: #C8F135;
+      }
+      .modal-label {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 11px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: #C8F135;
+        margin-bottom: 8px;
+        display: block;
+      }
+      .modal-heading {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: clamp(2.4rem, 4vw, 3.5rem);
+        color: #F0EDE6;
+        line-height: 1;
+        margin-bottom: 36px;
+        margin-top: 0;
+      }
+      .field-group {
+        margin-bottom: 16px;
+      }
+      .field-group input,
+      .field-group textarea {
+        width: 100%;
+        background: rgba(240,237,230,0.05);
+        border: 1px solid rgba(240,237,230,0.12);
+        border-radius: 10px;
+        padding: 14px 18px;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 15px;
+        color: #F0EDE6;
+        outline: none;
+        transition: border-color 0.2s;
+        box-sizing: border-box;
+        resize: none;
+      }
+      .field-group input::placeholder,
+      .field-group textarea::placeholder {
+        color: rgba(240,237,230,0.3);
+      }
+      .field-group input:focus,
+      .field-group textarea:focus {
+        border-color: rgba(200,241,53,0.5);
+        background: rgba(240,237,230,0.08);
+      }
+      #contact-modal,
+      #contact-modal * {
+        cursor: auto !important;
+      }
+      #contact-modal input,
+      #contact-modal textarea {
+        cursor: text !important;
+      }
+      #contact-modal button,
+      #contact-modal .modal-close-btn,
+      .cs-selected,
+      .cs-option {
+        cursor: pointer !important;
+      }
+      .custom-select {
+        position: relative;
+        width: 100%;
+        margin-bottom: 16px;
+        user-select: none;
+      }
+      .cs-selected {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(240,237,230,0.05);
+        border: 1px solid rgba(240,237,230,0.12);
+        border-radius: 10px;
+        padding: 14px 18px;
+        cursor: pointer;
+        transition: border-color 0.2s;
+      }
+      .custom-select.open .cs-selected {
+        border-color: rgba(200,241,53,0.5);
+        border-radius: 10px 10px 0 0;
+      }
+      .cs-selected-text {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 15px;
+        color: rgba(240,237,230,0.3);
+      }
+      .custom-select.has-value .cs-selected-text {
+        color: #F0EDE6;
+      }
+      .cs-arrow {
+        font-size: 12px;
+        color: rgba(240,237,230,0.4);
+        transition: transform 0.3s ease;
+        display: inline-block;
+      }
+      .custom-select.open .cs-arrow {
+        transform: rotate(180deg);
+        color: #C8F135;
+      }
+      .cs-options {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #1a2a18;
+        border: 1px solid rgba(200,241,53,0.25);
+        border-top: none;
+        border-radius: 0 0 10px 10px;
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.35s ease, opacity 0.25s ease;
+        opacity: 0;
+        z-index: 10;
+      }
+      .custom-select.open .cs-options {
+        max-height: 300px;
+        opacity: 1;
+      }
+      .cs-option {
+        padding: 13px 18px;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 14px;
+        color: rgba(240,237,230,0.7);
+        cursor: pointer;
+        transition: background 0.15s, color 0.15s;
+        border-bottom: 1px solid rgba(240,237,230,0.05);
+      }
+      .cs-option:last-child {
+        border-bottom: none;
+      }
+      .cs-option:hover {
+        background: rgba(200,241,53,0.1);
+        color: #C8F135;
+      }
+      .cs-option.selected {
+        background: rgba(200,241,53,0.08);
+        color: #C8F135;
+      }
+      #cf-submit {
+        width: 100%;
+        background: #C8F135;
+        color: #1C2318;
+        border: none;
+        border-radius: 10px;
+        padding: 16px;
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 1.2rem;
+        letter-spacing: 0.08em;
+        cursor: pointer;
+        margin-top: 8px;
+        transition: background 0.2s, transform 0.1s;
+      }
+      #cf-submit:hover {
+        background: #d4ff4a;
+        transform: translateY(-1px);
+      }
+      #cf-submit:active {
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="preloader">
+      <div class="pre-bg"></div>
+      
+      <!-- Animated KS monogram -->
+      <div class="pre-logo">
+        <svg viewBox="0 0 120 80" class="pre-svg">
+          <text x="50%" y="72%" 
+                text-anchor="middle" 
+                font-family="'Playfair Display', serif"
+                font-weight="700"
+                font-size="72"
+                fill="none"
+                stroke="#C8F135"
+                stroke-width="1.5"
+                stroke-dasharray="300"
+                stroke-dashoffset="300"
+                class="pre-monogram">KS</text>
+        </svg>
+      </div>
+
+      <!-- Studio name reveal -->
+      <div class="pre-name">
+        <span class="pre-kag">KAG</span><span class="pre-etsu">ETSU</span>
+        <span class="pre-studio">STUDIO</span>
+      </div>
+
+      <!-- Loading bar -->
+      <div class="pre-bar-wrap">
+        <div class="pre-bar"></div>
+      </div>
+
+      <!-- Percentage counter -->
+      <div class="pre-counter">0</div>
+    </div>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+
+    <div id="contact-modal">
+      <div class="modal-box">
+        <button id="modal-close" class="modal-close-btn">&times;</button>
+        <span class="modal-label">LET'S WORK TOGETHER</span>
+        <h2 class="modal-heading">TELL ME ABOUT<br>YOUR PROJECT.</h2>
+        <form id="contact-form">
+          <div class="field-group">
+            <input type="text" id="cf-name" name="name" placeholder="Your Name" required autocomplete="off">
+          </div>
+          <div class="field-group">
+            <input type="email" id="cf-email" name="email" placeholder="Your Email" required autocomplete="off">
+          </div>
+          <div class="custom-select" id="service-select">
+            <div class="cs-selected">
+              <span class="cs-selected-text">What do you need?</span>
+              <span class="cs-arrow">↓</span>
+            </div>
+            <div class="cs-options">
+              <div class="cs-option" data-value="Brand Identity Design">Brand Identity Design</div>
+              <div class="cs-option" data-value="Poster & Print Design">Poster & Print Design</div>
+              <div class="cs-option" data-value="Video Editing & Color Grading">Video Editing & Color Grading</div>
+              <div class="cs-option" data-value="Motion Graphics & Animation">Motion Graphics & Animation</div>
+              <div class="cs-option" data-value="Social Media Kit">Social Media Kit</div>
+              <div class="cs-option" data-value="Other">Other</div>
+            </div>
+            <!-- Hidden input to capture value for form submission -->
+            <input type="hidden" name="service" id="cf-service" required>
+          </div>
+          <div class="field-group">
+            <textarea id="cf-message" name="message" placeholder="Tell me about your project..." rows="4" required></textarea>
+          </div>
+          <button type="submit" id="cf-submit">
+            <span class="submit-text">SEND IT &rarr;</span>
+            <span class="submit-loading" style="display:none">SENDING...</span>
+          </button>
+        </form>
+      </div>
+    </div>
+    
+    <!--
+      EMAILJS SETUP (one-time, 5 minutes):
+      1. Go to emailjs.com and create a free account
+      2. Add Email Service (Gmail recommended) → copy SERVICE_ID
+      3. Create Email Template with these variables:
+           {{from_name}}, {{from_email}}, {{service_type}}, {{message}}
+         Copy TEMPLATE_ID
+      4. Go to Account → copy PUBLIC_KEY
+      5. Replace in code:
+           YOUR_PUBLIC_KEY  → your public key
+           YOUR_SERVICE_ID  → your service ID
+           YOUR_TEMPLATE_ID → your template ID
+           YOUR_EMAIL       → your actual email address
+    -->
+    <script>
+      // Add loading class on start
+      document.body.classList.add('loading');
+
+      ;(function() {
+        const preloader = document.getElementById('preloader')
+        if (!preloader) return
+
+        document.body.style.overflow = 'hidden'
+
+        const preBar = document.querySelector('.pre-bar')
+        const preCounter = document.querySelector('.pre-counter')
+        const preKag = document.querySelector('.pre-kag')
+        const preEtsu = document.querySelector('.pre-etsu')
+        const preStudio = document.querySelector('.pre-studio')
+        const monogram = document.querySelector('.pre-monogram')
+
+        function dismissPreloader() {
+          document.body.classList.remove('loading')
+          document.body.style.overflow = ''
+          gsap.to(preloader, {
+            yPercent: -100,
+            duration: 0.9,
+            ease: 'expo.inOut',
+            onComplete: () => {
+              preloader.style.display = 'none'
+            }
+          })
+        }
+
+        // Safety net — force dismiss after 4 seconds no matter what
+        const safetyTimer = setTimeout(dismissPreloader, 4000)
+
+        function runPreloader() {
+          const tl = gsap.timeline({
+            onComplete: () => {
+              clearTimeout(safetyTimer)
+              setTimeout(dismissPreloader, 300)
+            }
+          })
+
+          // Draw monogram if it exists
+          if (monogram) {
+            tl.to(monogram, {
+              strokeDashoffset: 0,
+              duration: 1.2,
+              ease: 'power2.inOut'
+            })
+          }
+
+          // Name reveal
+          if (preKag) {
+            tl.to([preKag, preEtsu], {
+              opacity: 1,
+              y: 0,
+              duration: 0.5,
+              stagger: 0.1,
+              ease: 'power3.out'
+            }, '-=0.3')
+          }
+
+          if (preStudio) {
+            tl.to(preStudio, {
+              opacity: 1,
+              duration: 0.3
+            }, '-=0.1')
+          }
+
+          // Loading bar
+          if (preBar) {
+            tl.to(preBar, {
+              width: '100%',
+              duration: 1.0,
+              ease: 'power1.inOut',
+              onUpdate: function() {
+                if (preCounter) {
+                  preCounter.textContent = Math.round(this.progress() * 100) + '%'
+                }
+              }
+            }, '-=0.1')
+          }
+
+          // Hold at 100%
+          tl.to({}, { duration: 0.4 })
+        }
+
+        // Wait for GSAP to be available
+        if (typeof gsap !== 'undefined') {
+          runPreloader()
+        } else {
+          // GSAP not loaded yet — wait for it
+          window.addEventListener('load', () => {
+            if (typeof gsap !== 'undefined') {
+              runPreloader()
+            } else {
+              // GSAP never loaded — just dismiss after 1s
+              setTimeout(dismissPreloader, 1000)
+            }
+          })
+        }
+
+      })()
+
+      emailjs.init("nn9n26c8SzJ0SVzI2");
+
+      window.openModal = function() {
+        document.getElementById('contact-modal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+      };
+
+      window.closeModal = function() {
+        document.getElementById('contact-modal').classList.remove('active');
+        document.body.style.overflow = '';
+      };
+
+      document.getElementById('contact-modal').addEventListener('mouseenter', () => {
+        const dot = document.querySelector('.cursor-dot');
+        const ring = document.querySelector('.cursor-ring');
+        if (dot) dot.style.opacity = '0';
+        if (ring) ring.style.opacity = '0';
+      });
+
+      document.getElementById('contact-modal').addEventListener('mouseleave', () => {
+        const dot = document.querySelector('.cursor-dot');
+        const ring = document.querySelector('.cursor-ring');
+        if (dot) dot.style.opacity = '1';
+        if (ring) ring.style.opacity = '1';
+      });
+
+      const customSelect = document.getElementById('service-select');
+      const csSelected = customSelect.querySelector('.cs-selected');
+      const csOptions = customSelect.querySelectorAll('.cs-option');
+      const csHidden = document.getElementById('cf-service');
+      const csText = customSelect.querySelector('.cs-selected-text');
+
+      csSelected.addEventListener('click', () => {
+        customSelect.classList.toggle('open');
+      });
+
+      csOptions.forEach(option => {
+        option.addEventListener('click', () => {
+          csText.textContent = option.dataset.value;
+          csHidden.value = option.dataset.value;
+          csOptions.forEach(o => o.classList.remove('selected'));
+          option.classList.add('selected');
+          customSelect.classList.add('has-value');
+          customSelect.classList.remove('open');
+        });
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!customSelect.contains(e.target)) {
+          customSelect.classList.remove('open');
+        }
+      });
+
+      document.getElementById('contact-modal').addEventListener('click', function(e) {
+        if (e.target === this) window.closeModal();
+      });
+
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') window.closeModal();
+      });
+
+      document.getElementById('modal-close').addEventListener('click', window.closeModal);
+
+      document.getElementById('contact-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const submitBtn = document.getElementById('cf-submit');
+        const submitText = submitBtn.querySelector('.submit-text');
+        const submitLoading = submitBtn.querySelector('.submit-loading');
+
+        submitText.style.display = 'none';
+        submitLoading.style.display = 'inline';
+        submitBtn.disabled = true;
+
+        const templateParams = {
+          from_name:    document.getElementById('cf-name').value.trim(),
+          from_email:   document.getElementById('cf-email').value.trim(),
+          service_type: document.getElementById('cf-service').value || 'Not specified',
+          message:      document.getElementById('cf-message').value.trim(),
+        };
+
+        emailjs.send(
+          'service_wxo43wo',
+          'template_4yy271r',
+          templateParams
+        )
+        .then(() => {
+          submitBtn.style.background = '#2d9e4f';
+          submitText.textContent = '✓ SENT SUCCESSFULLY';
+          submitText.style.display = 'inline';
+          submitLoading.style.display = 'none';
+          submitBtn.disabled = false;
+
+          setTimeout(() => {
+            document.getElementById('contact-form').reset();
+            // Reset custom select
+            csHidden.value = '';
+            csText.textContent = 'What do you need?';
+            customSelect.classList.remove('has-value');
+            csOptions.forEach(o => o.classList.remove('selected'));
+
+            submitText.textContent = 'SEND IT →';
+            submitBtn.style.background = '#C8F135';
+            window.closeModal();
+          }, 2000);
+        })
+        .catch((error) => {
+          submitBtn.style.background = '#e85a38';
+          submitText.textContent = '✗ FAILED — TRY AGAIN';
+          submitText.style.display = 'inline';
+          submitLoading.style.display = 'none';
+          submitBtn.disabled = false;
+
+          setTimeout(() => {
+            submitText.textContent = 'SEND IT →';
+            submitBtn.style.background = '#C8F135';
+          }, 3000);
+        });
+      });
+    </script>
+  </body>
+</html>
+
