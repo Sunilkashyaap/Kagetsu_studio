@@ -1,70 +1,20 @@
-<div class="header">
-  <h1 class="logo">KAG<span>ETSU</span></h1>
-  <p class="tagline">Studio · Pune, India · Est. 2025</p>
-  <div class="badge-row">
-    <span class="badge">HTML</span>
-    <span class="badge">CSS</span>
-    <span class="badge">Vanilla JS</span>
-    <span class="badge">GSAP</span>
-    <span class="badge">Three.js</span>
-    <span class="badge">EmailJS</span>
-  </div>
+<div align="center">
+<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
 </div>
 
-<h2>About</h2>
-<p>
-  Portfolio website for <strong style="color:#F0EDE6">Kagetsu Studio</strong> — a one-person creative force specializing in graphic design, video editing, and animation. Built with zero frameworks, pure HTML/CSS/JS with heavy animation using GSAP and Three.js.
-</p>
+# Run and deploy your AI Studio app
 
-<h2>Sections</h2>
-<div class="section-grid">
-  <div class="section-card">
-    <h3>🎨 Hero</h3>
-    <p>Interactive Three.js particle canvas with mouse repulsion and stat cards</p>
-  </div>
-  <div class="section-card">
-    <h3>🖼 Work Gallery</h3>
-    <p>Bento-style dark grid — Posters, Video Edits, Art with tab switching</p>
-  </div>
-  <div class="section-card">
-    <h3>⚡ Services</h3>
-    <p>Dual opposing marquee strip with custom software logo pills</p>
-  </div>
-  <div class="section-card">
-    <h3>👤 Creator</h3>
-    <p>Card swap stack showcasing the person behind the studio</p>
-  </div>
-  <div class="section-card">
-    <h3>📸 About</h3>
-    <p>Polaroid scatter layout with scroll-triggered spread animation</p>
-  </div>
-  <div class="section-card">
-    <h3>📬 Contact</h3>
-    <p>Modal form with real EmailJS integration — lands in inbox directly</p>
-  </div>
-</div>
+This contains everything you need to run your app locally.
 
-<h2>Tech Stack</h2>
-<div class="tech-grid">
-  <div class="tech-card"><span>Animation</span>GSAP 3 + ScrollTrigger</div>
-  <div class="tech-card"><span>3D</span>Three.js r128</div>
-  <div class="tech-card"><span>Fonts</span>Google Fonts</div>
-  <div class="tech-card"><span>Email</span>EmailJS</div>
-  <div class="tech-card"><span>Build</span>Vite</div>
-  <div class="tech-card"><span>Deploy</span>GitHub Pages</div>
-</div>
+View your app in AI Studio: https://ai.studio/apps/63217aad-1269-4269-a6e8-64bf6f228b43
 
-<h2>Connect</h2>
-<div class="links-row">
-  <a class="link-btn primary" href="https://www.behance.net/sunilkashyaap">Behance</a>
-  <a class="link-btn secondary" href="https://www.instagram.com/kagetsu.studio/">Instagram</a>
-  <a class="link-btn secondary" href="https://www.linkedin.com/in/sunil-kashyap11">LinkedIn</a>
-  <a class="link-btn secondary" href="https://dribbble.com/animevuee">Dribbble</a>
-</div>
+## Run Locally
 
-<div class="footer">
-  © 2025 KAGETSU STUDIO · PUNE, INDIA · ALL RIGHTS RESERVED
-</div>
+**Prerequisites:**  Node.js
 
-</body>
-</html>
+
+1. Install dependencies:
+   `npm install`
+2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+3. Run the app:
+   `npm run dev`
