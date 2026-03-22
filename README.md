@@ -54,16 +54,6 @@
   <div class="tech-card"><span>Deploy</span>GitHub Pages</div>
 </div>
 
-<h2>Run Locally</h2>
-<div class="command-block">
-  <span class="comment"># Clone the repo</span><br>
-  git clone https://github.com/Sunilkashyaap/Kagetsu_studio.git<br><br>
-  <span class="comment"># Navigate to project</span><br>
-  cd Kagetsu_studio<br><br>
-  <span class="comment"># Open index.html directly or use live server</span><br>
-  open index.html
-</div>
-
 <h2>Connect</h2>
 <div class="links-row">
   <a class="link-btn primary" href="https://www.behance.net/sunilkashyaap">Behance</a>
