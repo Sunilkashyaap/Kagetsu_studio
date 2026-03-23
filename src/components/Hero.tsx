@@ -10,6 +10,24 @@ export default function Hero() {
   const badgeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Parallax Animation
+    const handleMouseMove = (e: MouseEvent) => {
+      if (window.innerWidth <= 768) return;
+      if (!portraitRef.current) return;
+      
+      const mx = (e.clientX / window.innerWidth) - 0.5;
+      const my = (e.clientY / window.innerHeight) - 0.5;
+
+      gsap.to(portraitRef.current, {
+        x: mx * 28,
+        y: my * 14,
+        duration: 0.9,
+        ease: 'power2.out',
+      });
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+
     // Marquee Animation
     if (marqueeRef.current) {
       gsap.to(marqueeRef.current, {
@@ -48,6 +66,10 @@ export default function Hero() {
         '-=0.8'
       );
     }
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+    };
   }, []);
 
   return (
@@ -61,25 +83,25 @@ export default function Hero() {
       </div>
 
       {/* Center Content */}
-      <div className="relative z-10 flex flex-col items-center">
+      <div className="relative z-10 flex flex-col items-center mt-12 md:mt-0">
         <div ref={heroTextRef} className="text-center mb-8">
-          <h1 className="font-display font-bold text-6xl md:text-8xl tracking-tighter text-ink leading-none">
+          <h1 className="font-display font-bold text-6xl md:text-[9rem] tracking-tighter text-ink leading-none">
             KAGETSU
           </h1>
-          <p className="font-script text-lime text-4xl md:text-6xl -mt-4 -rotate-6">
+          <p className="font-script text-lime text-4xl md:text-7xl -mt-4 md:-mt-8 -rotate-6">
             Studio
           </p>
         </div>
 
-        {/* Portrait Placeholder */}
+        {/* Portrait Full Bleed */}
         <div
           ref={portraitRef}
-          className="w-64 h-96 md:w-80 md:h-[32rem] bg-dark/10 rounded-2xl overflow-hidden relative backdrop-blur-sm border border-ink/5"
+          className="hero-image-wrap mix-blend-multiply opacity-90"
         >
-          <div
-            className="w-full h-full bg-cover bg-center mix-blend-multiply opacity-80"
-            style={{ backgroundImage: `url(${wImage})` }}
-            aria-label="Kagetsu Studio Portrait"
+          <img
+            src={wImage}
+            alt="Kagetsu Studio Portrait"
+            className="hero-image"
           />
         </div>
       </div>
