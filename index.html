@@ -60,16 +60,16 @@
         margin-bottom: 48px;
         overflow: hidden;
       }
-      .pre-kag,
-      .pre-etsu {
+      .pre-kag {
         font-family: 'Playfair Display', serif;
         font-weight: 700;
-        font-size: clamp(3rem, 8vw, 6rem);
+        font-size: clamp(3.5rem, 9vw, 7rem);
         color: #F0EDE6;
-        line-height: 0.9;
+        line-height: 1;
         display: inline-block;
         opacity: 0;
         transform: translateY(40px);
+        white-space: nowrap;
       }
       .pre-studio {
         font-family: 'DM Sans', sans-serif;
@@ -348,7 +348,7 @@
 
       <!-- Studio name reveal -->
       <div class="pre-name">
-        <span class="pre-kag">KAG</span><span class="pre-etsu">ETSU</span>
+        <span class="pre-kag">KAGETSU</span>
         <span class="pre-studio">STUDIO</span>
       </div>
 
@@ -429,7 +429,6 @@
         const preBar = document.querySelector('.pre-bar')
         const preCounter = document.querySelector('.pre-counter')
         const preKag = document.querySelector('.pre-kag')
-        const preEtsu = document.querySelector('.pre-etsu')
         const preStudio = document.querySelector('.pre-studio')
         const monogram = document.querySelector('.pre-monogram')
 
@@ -468,11 +467,10 @@
 
           // Name reveal
           if (preKag) {
-            tl.to([preKag, preEtsu], {
+            tl.to(preKag, {
               opacity: 1,
               y: 0,
               duration: 0.5,
-              stagger: 0.1,
               ease: 'power3.out'
             }, '-=0.3')
           }

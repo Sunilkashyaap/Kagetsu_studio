@@ -11,14 +11,14 @@ const colors = [
 ];
 
 const posterCards = [
-  { name: "Brand Identity", year: "2024" },
-  { name: "Event Poster", year: "2024" },
-  { name: "Album Cover", year: "2024" },
-  { name: "Type Poster", year: "2023" },
-  { name: "Product Label", year: "2024" },
-  { name: "Concert Flyer", year: "2023" },
-  { name: "Logo Design", year: "2024" },
-  { name: "Zine Cover", year: "2023" }
+  { name: "Vagabond", year: "2024", img: "imh/vagabond.png", alt: "Vagabond Poster" },
+  { name: "Bombay Nights", year: "2024", img: "imh/Bombay_2.png", alt: "Bombay Poster" },
+  { name: "Bayaan", year: "2025", img: "imh/Bayaan.png", alt: "Bayaan Poster" },
+  { name: "Barcelona", year: "2024", img: "imh/Barcelona_blue.png", alt: "Barcelona Poster" },
+  { name: "Fight Club", year: "2024", img: "imh/fight_club.png", alt: "Fight Club Poster" },
+  { name: "Serenity", year: "2024", img: "imh/serinity_copy.png", alt: "Serenity Poster" },
+  { name: "Kagetsu", year: "2024", img: "imh/Kagetsu_card_copy.png", alt: "Kagetsu Card" },
+  { name: "Creative Block", year: "2024", img: "imh/Creative_blockk_copy.png", alt: "Creative Block Poster" }
 ].map((c, i) => ({ ...c, color: colors[i % colors.length] }));
 
 const videoCards = [
@@ -102,7 +102,7 @@ function PostersTab({ cards }: { cards: typeof posterCards }) {
               key={i}
               ref={el => cardsRef.current[i] = el}
               onClick={() => handleCardClick(i)}
-              className="absolute inset-0 cursor-pointer transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] hover:brightness-125"
+              className="work-card absolute inset-0 cursor-pointer transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] hover:brightness-125 overflow-hidden"
               style={{
                 backgroundColor: card.color,
                 transform: `translateX(${x}px) scale(${scale}) rotate(${rotate}deg)`,
@@ -112,6 +112,7 @@ function PostersTab({ cards }: { cards: typeof posterCards }) {
                 boxShadow: diff === 0 ? '0 20px 40px rgba(0,0,0,0.5)' : 'none'
               }}
             >
+              <img src={card.img} alt={card.alt} />
               <div className="absolute bottom-4 left-4 font-body text-[13px] text-white">
                 {card.name}
               </div>
