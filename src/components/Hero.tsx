@@ -1,12 +1,14 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 // @ts-ignore
-import wImage from '../../imh/w.png';
+import maoImage from '../../imh/mao.png';
 
 export default function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
   const marqueeRef = useRef<HTMLDivElement>(null);
   const heroTextRef = useRef<HTMLDivElement>(null);
   const portraitRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
   const badgeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -31,11 +33,13 @@ export default function Hero() {
       );
     }
 
+    // Cinematic Portrait Entrance
     if (portraitRef.current) {
       tl.fromTo(
         portraitRef.current,
-        { scale: 0.9, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 1, ease: 'power3.out' },
+        // xPercent locks the absolute centering (-translate-x-1/2 equivalent in JS) securely
+        { xPercent: -50, y: 60, opacity: 0 },
+        { xPercent: -50, y: 0, opacity: 1, duration: 0.9, ease: 'power3.out' },
         '-=0.5'
       );
     }
@@ -50,8 +54,49 @@ export default function Hero() {
     }
   }, []);
 
+  useEffect(() => {
+    const section = sectionRef.current;
+    const img = imageRef.current;
+    if (!section || !img) return;
+
+    // Fluid CSS transition injected directly mimicking prompt restraints
+    img.style.transition = 'transform 0.1s ease-out';
+
+    const handleMouseMove = (e: MouseEvent) => {
+      // Calculate cursor vector relative to center of section
+      const rect = section.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const deltaX = e.clientX - centerX;
+      const deltaY = e.clientY - centerY;
+
+      // Inverse dampening (-0.02 multiplier)
+      let moveX = deltaX * -0.02;
+      let moveY = deltaY * -0.02;
+
+      // Absolute capping to ensure it remains a subtle micro-interaction
+      moveX = Math.max(-15, Math.min(15, moveX));
+      moveY = Math.max(-15, Math.min(15, moveY));
+
+      img.style.transform = `translate(${moveX}px, ${moveY}px)`;
+    };
+
+    const handleMouseLeave = () => {
+      // Return smoothly to true origin center
+      img.style.transform = `translate(0px, 0px)`;
+    };
+
+    section.addEventListener('mousemove', handleMouseMove);
+    section.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      section.removeEventListener('mousemove', handleMouseMove);
+      section.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
+
   return (
-    <section id="home" className="relative h-screen w-full bg-cream bg-topo overflow-hidden flex items-center justify-center pt-20">
+    <section ref={sectionRef} id="home" className="relative h-screen w-full bg-cream bg-topo overflow-hidden flex items-center justify-center pt-20">
       {/* Background Marquee */}
       <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[200vw] flex pointer-events-none z-0 opacity-5">
         <div ref={marqueeRef} className="flex whitespace-nowrap font-heading text-[20vw] leading-none tracking-tighter text-ink">
@@ -61,8 +106,8 @@ export default function Hero() {
       </div>
 
       {/* Center Content */}
-      <div className="relative z-10 flex flex-col items-center">
-        <div ref={heroTextRef} className="text-center mb-8">
+      <div className="relative z-10 flex flex-col items-center h-full w-full">
+        <div ref={heroTextRef} className="text-center mt-[4vh] mb-8">
           <h1 className="font-display font-bold text-6xl md:text-8xl tracking-tighter text-ink leading-none">
             KAGETSU
           </h1>
@@ -71,15 +116,16 @@ export default function Hero() {
           </p>
         </div>
 
-        {/* Portrait Placeholder */}
+        {/* Portrait — pinned to bottom */}
         <div
           ref={portraitRef}
-          className="w-64 h-96 md:w-80 md:h-[32rem] bg-dark/10 rounded-2xl overflow-hidden relative backdrop-blur-sm border border-ink/5"
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[28rem] md:w-[36rem] overflow-hidden"
         >
-          <div
-            className="w-full h-full bg-cover bg-center mix-blend-multiply opacity-80"
-            style={{ backgroundImage: `url(${wImage})` }}
-            aria-label="Kagetsu Studio Portrait"
+          <img
+            ref={imageRef}
+            src={maoImage}
+            alt="Kagetsu Studio Portrait"
+            className="block mx-auto w-full h-auto object-contain object-center transition-transform duration-500 ease-out hover:translate-y-[-6px] hover:scale-[1.02]"
           />
         </div>
       </div>

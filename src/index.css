@@ -20,7 +20,12 @@ body {
   overflow-x: hidden;
 }
 
-a, button, [role="button"], input, textarea, select {
+a,
+button,
+[role="button"],
+input,
+textarea,
+select {
   cursor: none;
 }
 
@@ -39,21 +44,21 @@ a, button, [role="button"], input, textarea, select {
 .cursor-dot {
   width: 8px;
   height: 8px;
-  background-color: var(--color-lime);
+  background: #FF6B47;
 }
 
 .cursor-ring {
   width: 28px;
   height: 28px;
-  border: 1px solid var(--color-lime);
+  border: 1px solid #FF6B47;
   transition: width 0.15s ease, height 0.15s ease, background-color 0.15s ease, mix-blend-mode 0.15s ease;
 }
 
 .cursor-ring.hover {
   width: 48px;
   height: 48px;
-  background-color: var(--color-lime);
-  mix-blend-mode: difference;
+  background: rgba(255, 107, 71, 0.1);
+  border-color: #FF6B47;
 }
 
 /* Topographic Background */
@@ -66,9 +71,11 @@ a, button, [role="button"], input, textarea, select {
 ::-webkit-scrollbar {
   width: 8px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--color-cream);
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--color-dark);
   border-radius: 4px;
@@ -119,7 +126,7 @@ section,
 .work-tab {
   font-family: 'Inter', 'DM Sans', sans-serif;
   font-size: 13px;
-  color: rgba(240,237,230,0.5);
+  color: rgba(240, 237, 230, 0.5);
   background: none;
   border: none;
   cursor: pointer;
@@ -133,17 +140,109 @@ section,
   color: #C8F135;
 }
 
-.work-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center top;
-  display: block;
-  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+/* ─── Work Cards ─── */
+.work-card {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
-.work-card:hover img {
-  transform: scale(1.05);
+/* ─── Music Button ─── */
+.music-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9990;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 10px 14px;
+  background: #1C2318;
+  border: 1px solid rgba(200, 241, 53, 0.3);
+  border-radius: 999px;
+  color: #C8F135;
+  max-width: 48px;
+  overflow: hidden;
+  transition: max-width 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              gap 0.35s ease,
+              border-color 0.3s ease;
+  cursor: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.music-btn:hover {
+  max-width: 180px;
+  gap: 10px;
+  border-color: #C8F135;
+}
+
+.music-btn.muted {
+  border-color: rgba(255, 107, 71, 0.3);
+  color: #C8F135;
+}
+
+.music-btn.muted:hover {
+  border-color: #FF6B47;
+}
+
+.music-btn-icon {
+  flex-shrink: 0;
+  display: block;
+}
+
+/* Sound waves — visible when unmuted */
+.music-btn-waves {
+  display: block;
+}
+
+.music-btn.muted .music-btn-waves {
+  display: none;
+}
+
+/* X — visible when muted */
+.music-btn-x {
+  display: none;
+}
+
+.music-btn.muted .music-btn-x {
+  display: block;
+}
+
+/* Wave pulse animation */
+@keyframes wave-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.music-btn-wave {
+  animation: wave-pulse 1s ease-in-out infinite;
+}
+
+.music-btn.muted .music-btn-wave {
+  animation: none;
+  opacity: 0.2;
+}
+
+/* Label */
+.music-btn-label {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+  color: #C8F135;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.25s ease 0.1s, transform 0.25s ease 0.1s;
+  pointer-events: none;
+}
+
+.music-btn:hover .music-btn-label {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.music-btn.muted .music-btn-label {
+  color: #FF6B47;
 }
 
 .swap-card {
@@ -167,7 +266,7 @@ section,
   background-size: 200px 200px;
 }
 
-#nav-drawer > * {
+#nav-drawer>* {
   position: relative;
   z-index: 1;
 }
@@ -186,7 +285,7 @@ section,
   background: #ffffff;
   padding: 10px 10px 36px 10px;
   border-radius: 3px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
   cursor: pointer;
   will-change: transform;
 }
@@ -266,4 +365,4 @@ section,
   opacity: 0.3;
   pointer-events: none;
   z-index: 3;
-}
+}

@@ -2,6 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+// @ts-ignore
+import kagVideo from '../../imh/kag.mp4';
+
 gsap.registerPlugin(ScrollTrigger);
 
 const navLinks = [
@@ -168,7 +171,7 @@ export default function Footer() {
 
         {/* Main Three-Column Layout */}
         <div 
-          className="flex flex-row items-start justify-between px-[48px] pt-[40px] flex-1 gap-[40px] min-h-0 overflow-visible"
+          className="flex flex-row items-start justify-between px-[48px] pt-[40px] flex-1 gap-[40px] min-h-0 overflow-visible relative"
           style={{ height: 'calc(100vh - 200px)' }}
         >
           
@@ -192,22 +195,20 @@ export default function Footer() {
           </div>
 
           {/* Center Column */}
-          <div className="flex-1 flex justify-center items-end h-full">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-0">
             {/* Dark Card */}
             <div 
               ref={centerCardRef}
-              className="bg-[#0d1a0b] w-[clamp(200px,20vw,300px)] aspect-[2/3] rounded-t-[12px] rounded-b-none border border-[rgba(200,241,53,0.25)] border-b-0 flex items-center justify-center opacity-100"
+              className="relative bg-[#0d1a0b] w-[clamp(200px,20vw,300px)] aspect-[2/3] rounded-[12px] border border-[rgba(200,241,53,0.25)] flex items-center justify-center opacity-100 overflow-hidden pointer-events-auto"
             >
-              {/* SVG Monogram */}
-              <svg viewBox="0 0 100 60" width="80" height="48">
-                <text ref={pathRef} x="10" y="48" 
-                      fontFamily="'Playfair Display', serif" 
-                      fontSize="52" 
-                      fontWeight="700"
-                      fill="none" 
-                      stroke="#C8F135" 
-                      strokeWidth="1.5">KS</text>
-              </svg>
+              <video 
+                src={kagVideo} 
+                autoPlay 
+                loop 
+                muted 
+                playsInline 
+                className="absolute inset-0 w-full h-full object-cover grayscale"
+              />
             </div>
           </div>
 

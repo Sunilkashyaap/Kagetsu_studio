@@ -130,14 +130,14 @@ export default function SocialFan() {
   return (
     <section id="fan" className="w-full bg-cream bg-topo relative overflow-hidden min-h-screen flex items-center px-[8vw] box-border">
       <div className="flex items-center justify-between w-full gap-[6vw]">
-        
+
         {/* Left Block - 38% */}
         <div className="flex-[0_0_38%] flex flex-col justify-center gap-0 z-20">
           <span className="font-body text-[13px] uppercase tracking-[0.1em] text-[#1a1a1a] opacity-60 mb-[16px] block">THE CREATOR</span>
-          <h2 className="font-heading text-[clamp(3.5rem,6vw,7rem)] leading-[0.95] text-[#1a1a1a] m-0 mb-[28px]">ONE MIND.<br/>ALL OF IT.</h2>
+          <h2 className="font-heading text-[clamp(3.5rem,6vw,7rem)] leading-[0.95] text-[#1a1a1a] m-0 mb-[28px]">ONE MIND.<br />ALL OF IT.</h2>
           <p className="font-body text-[16px] text-[#1a1a1a] opacity-60 leading-[1.65] max-w-[380px] mb-[36px]">
-            Not a team. Not an agency.<br/>
-            Just one person obsessed with<br/>
+            Not a team. Not an agency.<br />
+            Just one person obsessed with<br />
             making things look extraordinary.
           </p>
           <div className="swap-dots flex gap-[10px] items-center">
@@ -155,7 +155,7 @@ export default function SocialFan() {
         {/* Right Block - 58% */}
         <div className="flex-[0_0_58%] relative h-[520px] flex items-center justify-end">
           <div className="cardswap-stage relative w-[576px] h-[480px] cursor-pointer">
-            
+
             {/* Card 1 */}
             <div className="swap-card absolute bottom-0 left-0 w-[480px] h-[340px] rounded-[14px] shadow-[0_32px_80px_rgba(0,0,0,0.18),0_8px_24px_rgba(0,0,0,0.10)] overflow-hidden flex flex-col border border-[rgba(255,255,255,0.15)] bg-[#1C2318]">
               <div className="h-[40px] w-full flex items-center px-[16px] gap-[8px] bg-[#243020] rounded-t-[14px] shrink-0">

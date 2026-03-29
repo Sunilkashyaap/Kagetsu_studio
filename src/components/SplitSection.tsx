@@ -3,6 +3,11 @@ import { ArrowRight } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+// @ts-ignore
+import posterImg from "../../imh/www.png";
+// @ts-ignore
+import animatingVideo from "../../imh/Animating.mp4";
+
 gsap.registerPlugin(ScrollTrigger);
 
 export default function SplitSection() {
@@ -41,10 +46,10 @@ export default function SplitSection() {
     <section ref={sectionRef} className="w-full bg-cream py-24 md:py-48 relative overflow-hidden">
       {/* Background bleeding images */}
       <div className="absolute top-1/2 left-0 -translate-y-1/2 -translate-x-1/2 w-64 h-96 bg-dark/10 rounded-3xl overflow-hidden opacity-50 md:opacity-100 pointer-events-none">
-        <div className="w-full h-full bg-cover bg-center mix-blend-multiply" style={{ backgroundImage: 'url(https://picsum.photos/seed/poster/400/600)' }} aria-label="Poster Work" />
+        <img src={posterImg} alt="Poster Work" className="w-full h-full object-cover mix-blend-multiply" />
       </div>
       <div className="absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/2 w-64 h-96 bg-dark/10 rounded-3xl overflow-hidden opacity-50 md:opacity-100 pointer-events-none">
-        <div className="w-full h-full bg-cover bg-center mix-blend-multiply" style={{ backgroundImage: 'url(https://picsum.photos/seed/video/400/600)' }} aria-label="Video Work" />
+        <video className="w-full h-full object-cover mix-blend-multiply" src={animatingVideo} autoPlay loop muted playsInline aria-label="Video Work" />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-24 md:gap-12 relative z-10">
@@ -61,8 +66,8 @@ export default function SplitSection() {
           <p className="font-body text-lg md:text-xl text-ink/70 mb-8 max-w-sm">
             Brand identities, poster series, and print work.
           </p>
-          <button className="w-16 h-16 bg-lime text-ink flex items-center justify-center hover:bg-ink hover:text-lime transition-colors">
-            <ArrowRight size={32} />
+          <button className="px-6 py-2 rounded-lg bg-lime text-ink font-body text-sm font-medium tracking-widest uppercase hover:bg-ink hover:text-lime transition-colors">
+            Since 2021
           </button>
         </div>
 
@@ -79,8 +84,8 @@ export default function SplitSection() {
           <p className="font-body text-lg md:text-xl text-ink/70 mb-8 max-w-sm">
             Cinematic cuts, color grading, reels.
           </p>
-          <button className="w-16 h-16 bg-lime text-ink flex items-center justify-center hover:bg-ink hover:text-lime transition-colors">
-            <ArrowRight size={32} />
+          <button className="px-6 py-2 rounded-lg bg-lime text-ink font-body text-sm font-medium tracking-widest uppercase hover:bg-ink hover:text-lime transition-colors">
+            Since 2019
           </button>
         </div>
       </div>

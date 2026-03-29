@@ -4,12 +4,24 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// @ts-ignore
+import aiImg from "../../imh/about/ai.png";
+// @ts-ignore
+import flagImg from "../../imh/about/flag.png";
+// @ts-ignore
+import studioImg from "../../imh/about/studio.png";
+// @ts-ignore
+import newImg from "../../imh/about/new.png";
+
+// @ts-ignore
+import thirtyNineImg from "../../imh/about/39.png";
+
 const cards = [
-  { id: 1, label: 'CREATIVE PROCESS', color: '#8a8a8a', left: '50%', top: '42%', rotation: -2, width: '280px', zIndex: 5 },
-  { id: 2, label: 'LATE NIGHTS', color: '#6b6b6b', left: '25%', top: '22%', rotation: -8, width: '220px', zIndex: 3 },
-  { id: 3, label: 'ARCHIVE · 2022', color: '#9a9a9a', left: '20%', top: '65%', rotation: 6, width: '200px', zIndex: 2 },
-  { id: 4, label: 'THE STUDIO', color: '#7a7a7a', left: '74%', top: '20%', rotation: 5, width: '210px', zIndex: 4 },
-  { id: 5, label: 'BEHIND THE WORK', color: '#5a5a5a', left: '76%', top: '62%', rotation: -6, width: '220px', zIndex: 3 },
+  { id: 1, label: 'CREATIVE PROCESS', hoverText: 'Initial Concepts', hoverDir: 'top', img: aiImg, color: '#8a8a8a', left: '50%', top: '42%', rotation: -2, width: '280px', zIndex: 5 },
+  { id: 2, label: 'LATE NIGHTS', hoverText: '3D Work', hoverDir: 'left', img: flagImg, color: '#6b6b6b', left: '25%', top: '22%', rotation: -8, width: '220px', zIndex: 3 },
+  { id: 3, label: 'ARCHIVE · 2022', hoverText: 'Past Projects', hoverDir: 'bottom', img: thirtyNineImg, color: '#9a9a9a', left: '20%', top: '65%', rotation: 6, width: '200px', zIndex: 2 },
+  { id: 4, label: 'THE STUDIO', hoverText: 'Started In 2020', hoverDir: 'right', img: studioImg, color: '#7a7a7a', left: '74%', top: '20%', rotation: 5, width: '210px', zIndex: 4 },
+  { id: 5, label: 'BEHIND THE WORK', hoverText: 'Me', hoverDir: 'right', img: newImg, color: '#5a5a5a', left: '76%', top: '62%', rotation: -6, width: '220px', zIndex: 3 },
 ];
 
 export default function About() {
@@ -95,20 +107,52 @@ export default function About() {
           <div
             key={card.id}
             ref={(el) => (cardsRef.current[i] = el)}
-            className="scatter-card"
+            className="scatter-card group"
             style={{
               width: card.width,
               zIndex: card.zIndex,
               transformOrigin: 'center center'
             }}
           >
-            <div 
-              className="card-fill" 
-              style={{ 
-                backgroundColor: card.color,
-                filter: 'contrast(1.1) brightness(0.95)'
-              }}
-            />
+            {card.img ? (
+              <img src={card.img} alt={card.label} className="transition-transform duration-500" />
+            ) : (
+              <div 
+                className="card-fill transition-transform duration-500" 
+                style={{ 
+                  backgroundColor: card.color,
+                  filter: 'contrast(1.1) brightness(0.95)'
+                }}
+              />
+            )}
+            
+            
+            {/* Minimalist Hover Tooltips */}
+            {card.hoverDir === 'left' && (
+              <div className="absolute right-full top-1/2 -translate-y-1/2 pr-3 flex items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap -z-10">
+                <span className="font-body text-[10px] font-medium uppercase tracking-[0.2em] text-ink mr-3">{card.hoverText}</span>
+                <div className="h-[1px] w-8 bg-ink"></div>
+              </div>
+            )}
+            {card.hoverDir === 'right' && (
+              <div className="absolute left-full top-1/2 -translate-y-1/2 pl-3 flex items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap -z-10">
+                <div className="h-[1px] w-8 bg-ink"></div>
+                <span className="font-body text-[10px] font-medium uppercase tracking-[0.2em] text-ink ml-3">{card.hoverText}</span>
+              </div>
+            )}
+            {card.hoverDir === 'top' && (
+              <div className="absolute bottom-full left-1/2 -translate-x-1/2 pb-3 flex flex-col items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap -z-10">
+                <span className="font-body text-[10px] font-medium uppercase tracking-[0.2em] text-ink mb-3">{card.hoverText}</span>
+                <div className="w-[1px] h-8 bg-ink"></div>
+              </div>
+            )}
+            {card.hoverDir === 'bottom' && (
+              <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 flex flex-col items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap -z-10">
+                <div className="w-[1px] h-8 bg-ink"></div>
+                <span className="font-body text-[10px] font-medium uppercase tracking-[0.2em] text-ink mt-3">{card.hoverText}</span>
+              </div>
+            )}
+
             <span className="card-label">
               {card.label}
             </span>
