@@ -81,17 +81,17 @@ export default function Footer() {
             { x: -30, autoAlpha: 0 },
             { x: 0, autoAlpha: 1, stagger: 0.07, duration: 0.45, ease: "power3.out" }
           )
-          .fromTo(rightElements,
-            { x: 30, autoAlpha: 0 },
-            { x: 0, autoAlpha: 1, stagger: 0.07, duration: 0.45, ease: "power3.out" },
-            "<"
-          )
-          .fromTo(centerCardRef.current,
-            { y: 30, autoAlpha: 0 },
-            { y: 0, autoAlpha: 1, duration: 0.5, ease: "power3.out" },
-            "<0.1"
-          );
-          
+            .fromTo(rightElements,
+              { x: 30, autoAlpha: 0 },
+              { x: 0, autoAlpha: 1, stagger: 0.07, duration: 0.45, ease: "power3.out" },
+              "<"
+            )
+            .fromTo(centerCardRef.current,
+              { y: 30, autoAlpha: 0 },
+              { y: 0, autoAlpha: 1, duration: 0.5, ease: "power3.out" },
+              "<0.1"
+            );
+
           if (pathRef.current) {
             try {
               const length = pathRef.current.getComputedTextLength();
@@ -129,9 +129,9 @@ export default function Footer() {
       <div ref={triggerRef} className="h-[10vh] w-full bg-transparent" />
 
       {/* Fixed Full-Screen Footer Panel */}
-      <div 
+      <div
         id="footer-panel"
-        ref={footerRef} 
+        ref={footerRef}
         className="fixed bottom-0 left-0 w-full h-screen z-[999] flex flex-col bg-[#1C2318] translate-y-full overflow-hidden"
         style={{ pointerEvents: isOpen ? 'auto' : 'none' }}
       >
@@ -140,9 +140,9 @@ export default function Footer() {
           <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style={{ width: '100%', height: '60px', display: 'block' }}>
             <path d="M0,60 C360,0 1080,0 1440,60 L1440,0 L0,0 Z" fill="#1C2318" />
           </svg>
-          
+
           {/* Circle Handle */}
-          <div 
+          <div
             className="absolute top-[10px] left-1/2 -translate-x-1/2 w-[40px] h-[40px] rounded-full flex items-center justify-center cursor-pointer transition-colors"
             style={{ background: 'rgba(240,237,230,0.12)', border: '1px solid rgba(240,237,230,0.25)' }}
             onClick={closeFooter}
@@ -160,7 +160,7 @@ export default function Footer() {
             <button onClick={() => (window as any).openModal()} className="bg-[#C8F135] text-[#1C2318] px-[20px] py-[9px] rounded-full font-heading text-[15px] tracking-wider hover:bg-[#F0EDE6] transition-colors cursor-none">
               ✦ HIRE ME &rarr;
             </button>
-            <button 
+            <button
               onClick={closeFooter}
               className="w-[44px] h-[44px] border-[1.5px] border-[rgba(240,237,230,0.35)] rounded-[6px] flex items-center justify-center text-[#F0EDE6] text-[18px] hover:bg-[#F0EDE6]/10 transition-colors cursor-none"
             >
@@ -170,11 +170,11 @@ export default function Footer() {
         </div>
 
         {/* Main Three-Column Layout */}
-        <div 
+        <div
           className="flex flex-row items-start justify-between px-[48px] pt-[40px] flex-1 gap-[40px] min-h-0 overflow-visible relative"
           style={{ height: 'calc(100vh - 200px)' }}
         >
-          
+
           {/* Left Column */}
           <div ref={leftLinksRef} className="flex flex-col gap-[2px] flex-[0_0_240px]">
             <span className="block font-body text-[10px] tracking-[0.3em] uppercase text-[rgba(240,237,230,0.45)] mb-[18px]">PAGES</span>
@@ -197,16 +197,16 @@ export default function Footer() {
           {/* Center Column */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-0">
             {/* Dark Card */}
-            <div 
+            <div
               ref={centerCardRef}
               className="relative bg-[#0d1a0b] w-[clamp(200px,20vw,300px)] aspect-[2/3] rounded-[12px] border border-[rgba(200,241,53,0.25)] flex items-center justify-center opacity-100 overflow-hidden pointer-events-auto"
             >
-              <video 
-                src={kagVideo} 
-                autoPlay 
-                loop 
-                muted 
-                playsInline 
+              <video
+                src={kagVideo}
+                autoPlay
+                loop
+                muted
+                playsInline
                 className="absolute inset-0 w-full h-full object-cover grayscale"
               />
             </div>
@@ -236,7 +236,7 @@ export default function Footer() {
               </span>
             </div>
           </div>
-          
+
           {/* CTA Button */}
           <button onClick={() => (window as any).openModal()} className="bg-[#C8F135] text-[#1C2318] font-heading text-[14px] px-[24px] py-[10px] rounded-full flex-shrink-0 hover:bg-[#F0EDE6] transition-colors cursor-none">
             BUSINESS ENQUIRIES &rarr;
