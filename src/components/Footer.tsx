@@ -152,12 +152,12 @@ export default function Footer() {
         </div>
 
         {/* Top Nav Bar */}
-        <div className="flex justify-between items-center px-[48px] pt-[16px] flex-shrink-0">
+        <div className="flex justify-between items-center px-6 md:px-[48px] pt-[16px] flex-shrink-0">
           <div className="font-display font-bold text-[1.4rem] leading-[1.1] text-[#F0EDE6]">
             KAG<br />ETSU
           </div>
           <div className="flex items-center gap-[12px]">
-            <button onClick={() => (window as any).openModal()} className="bg-[#C8F135] text-[#1C2318] px-[20px] py-[9px] rounded-full font-heading text-[15px] tracking-wider hover:bg-[#F0EDE6] transition-colors cursor-none">
+            <button onClick={() => (window as any).openModal()} className="hidden md:block bg-[#C8F135] text-[#1C2318] px-[20px] py-[9px] rounded-full font-heading text-[15px] tracking-wider hover:bg-[#F0EDE6] transition-colors cursor-none">
               ✦ HIRE ME &rarr;
             </button>
             <button
@@ -169,14 +169,14 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Main Three-Column Layout */}
+        {/* Main Three-Column Layout (Responsive) */}
         <div
-          className="flex flex-row items-start justify-between px-[48px] pt-[40px] flex-1 gap-[40px] min-h-0 overflow-visible relative"
+          className="flex flex-col md:flex-row items-start justify-start md:justify-between px-6 md:px-[48px] pt-[32px] md:pt-[40px] flex-1 gap-[24px] md:gap-[40px] min-h-0 overflow-y-auto md:overflow-visible relative"
           style={{ height: 'calc(100vh - 200px)' }}
         >
 
           {/* Left Column */}
-          <div ref={leftLinksRef} className="flex flex-col gap-[2px] flex-[0_0_240px]">
+          <div ref={leftLinksRef} className="flex flex-col gap-[2px] w-full md:flex-[0_0_240px] relative z-10 w-full">
             <span className="block font-body text-[10px] tracking-[0.3em] uppercase text-[rgba(240,237,230,0.45)] mb-[18px]">PAGES</span>
             {navLinks.map(link => (
               <a key={link.id} href={link.id === 'CONTACT' ? '#' : `#${link.id.toLowerCase()}`} onClick={(e) => {
@@ -185,17 +185,17 @@ export default function Footer() {
                   (window as any).openModal();
                 }
                 closeFooter();
-              }} className="block font-heading text-[clamp(2rem,3.2vw,3rem)] text-[#F0EDE6] no-underline leading-[1.05] opacity-100 hover:text-[#C8F135] transition-colors duration-200 cursor-none">
+              }} className="block font-heading text-[clamp(2.5rem,10vw,3rem)] md:text-[clamp(2rem,3.2vw,3rem)] text-[#F0EDE6] no-underline leading-[1.05] opacity-100 hover:text-[#C8F135] transition-colors duration-200 cursor-none">
                 {link.id}
               </a>
             ))}
-            <a href="#" onClick={(e) => { e.preventDefault(); (window as any).openModal(); closeFooter(); }} className="hire-link block font-heading text-[clamp(2rem,3.2vw,3rem)] text-[#C8F135] no-underline leading-[1.05] opacity-100 hover:text-[#F0EDE6] transition-colors duration-200 cursor-none mt-[20px]">
+            <a href="#" onClick={(e) => { e.preventDefault(); (window as any).openModal(); closeFooter(); }} className="hire-link block font-heading text-[clamp(2.5rem,10vw,3rem)] md:text-[clamp(2rem,3.2vw,3rem)] text-[#C8F135] no-underline leading-[1.05] opacity-100 hover:text-[#F0EDE6] transition-colors duration-200 cursor-none md:mt-[20px] mt-[12px]">
               HIRE ME
             </a>
           </div>
 
           {/* Center Column */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-0">
+          <div className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-0">
             {/* Dark Card */}
             <div
               ref={centerCardRef}
@@ -213,10 +213,10 @@ export default function Footer() {
           </div>
 
           {/* Right Column */}
-          <div ref={rightLinksRef} className="flex flex-col gap-[2px] flex-[0_0_240px] text-right items-end">
+          <div ref={rightLinksRef} className="flex flex-col gap-[2px] w-full md:flex-[0_0_240px] text-left md:text-right items-start md:items-end relative z-10 mt-4 md:mt-0">
             <span className="block font-body text-[10px] tracking-[0.3em] uppercase text-[rgba(240,237,230,0.45)] mb-[18px]">FOLLOW ON</span>
             {socialLinks.map(link => (
-              <a key={link.id} href={link.url} target="_blank" rel="noopener" className="block font-heading text-[clamp(2rem,3.2vw,3rem)] text-[#F0EDE6] no-underline leading-[1.05] opacity-100 hover:text-[#C8F135] transition-colors duration-200 cursor-none">
+              <a key={link.id} href={link.url} target="_blank" rel="noopener" className="block font-heading text-[clamp(2.5rem,10vw,3rem)] md:text-[clamp(2rem,3.2vw,3rem)] text-[#F0EDE6] no-underline leading-[1.05] opacity-100 hover:text-[#C8F135] transition-colors duration-200 cursor-none">
                 {link.id}
               </a>
             ))}
@@ -224,9 +224,9 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-[rgba(240,237,230,0.1)] px-[48px] py-[14px] flex justify-between items-center bg-[#1C2318] flex-shrink-0">
+        <div className="border-t border-[rgba(240,237,230,0.1)] px-6 md:px-[48px] py-[16px] md:py-[14px] flex flex-col md:flex-row gap-4 md:gap-0 justify-between items-center bg-[#1C2318] flex-shrink-0">
           {/* Marquee */}
-          <div className="w-[55%] overflow-hidden relative">
+          <div className="w-full md:w-[55%] overflow-hidden relative order-2 md:order-1">
             <div ref={marqueeRef} className="flex w-max gap-0">
               <span className="font-heading text-[13px] text-[#F0EDE6] opacity-45 tracking-[0.08em] whitespace-nowrap">
                 ADOBE CC ✦ AFTER EFFECTS ✦ PREMIERE PRO ✦ PHOTOSHOP ✦ ILLUSTRATOR ✦ DAVINCI RESOLVE ✦ BLENDER ✦ FIGMA ✦&nbsp;&nbsp;&nbsp;&nbsp;
@@ -238,15 +238,15 @@ export default function Footer() {
           </div>
 
           {/* CTA Button */}
-          <button onClick={() => (window as any).openModal()} className="bg-[#C8F135] text-[#1C2318] font-heading text-[14px] px-[24px] py-[10px] rounded-full flex-shrink-0 hover:bg-[#F0EDE6] transition-colors cursor-none">
+          <button onClick={() => (window as any).openModal()} className="w-full md:w-auto bg-[#C8F135] text-[#1C2318] font-heading text-[14px] px-[24px] py-[14px] md:py-[10px] rounded-full flex-shrink-0 hover:bg-[#F0EDE6] transition-colors cursor-none order-1 md:order-2">
             BUSINESS ENQUIRIES &rarr;
           </button>
         </div>
 
         {/* Copyright Line */}
-        <div className="px-[48px] py-[10px] flex justify-between bg-[#1C2318] flex-shrink-0 border-t border-[rgba(240,237,230,0.06)]">
-          <p className="font-body text-[12px] text-[#F0EDE6] opacity-40">© 2026 Kagetsu Studio. All rights reserved</p>
-          <div className="font-body text-[12px] text-[#F0EDE6] opacity-40">
+        <div className="px-6 md:px-[48px] py-4 md:py-[10px] flex flex-col md:flex-row justify-center md:justify-between items-center gap-2 md:gap-0 bg-[#1C2318] flex-shrink-0 border-t border-[rgba(240,237,230,0.06)]">
+          <p className="font-body text-[12px] text-[#F0EDE6] opacity-40 text-center md:text-left">© 2026 Kagetsu Studio. All rights reserved</p>
+          <div className="font-body text-[12px] text-[#F0EDE6] opacity-40 text-center md:text-right">
             PRIVACY POLICY &middot; TERMS
           </div>
         </div>

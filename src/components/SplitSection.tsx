@@ -45,10 +45,10 @@ export default function SplitSection() {
   return (
     <section ref={sectionRef} className="w-full bg-cream py-24 md:py-48 relative overflow-hidden">
       {/* Background bleeding images */}
-      <div className="absolute top-1/2 left-0 -translate-y-1/2 -translate-x-1/2 w-64 h-96 bg-dark/10 rounded-3xl overflow-hidden opacity-50 md:opacity-100 pointer-events-none">
+      <div className="hidden md:block absolute top-1/2 left-0 -translate-y-1/2 -translate-x-1/2 w-64 h-96 bg-dark/10 rounded-3xl overflow-hidden md:opacity-100 pointer-events-none">
         <img src={posterImg} alt="Poster Work" className="w-full h-full object-cover mix-blend-multiply" />
       </div>
-      <div className="absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/2 w-64 h-96 bg-dark/10 rounded-3xl overflow-hidden opacity-50 md:opacity-100 pointer-events-none">
+      <div className="hidden md:block absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/2 w-64 h-96 bg-dark/10 rounded-3xl overflow-hidden md:opacity-100 pointer-events-none">
         <video className="w-full h-full object-cover mix-blend-multiply" src={animatingVideo} autoPlay loop muted playsInline aria-label="Video Work" />
       </div>
 
