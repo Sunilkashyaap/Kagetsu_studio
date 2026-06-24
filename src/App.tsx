@@ -4,6 +4,7 @@
  */
 
 import { useEffect, useState, useRef } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import Cursor from './components/Cursor';
 import ScrollProgress from './components/ScrollProgress';
 import Navbar from './components/Navbar';
@@ -52,6 +53,7 @@ export default function App() {
       </main>
 
       <Footer />
+      <Analytics />
 
       <audio
         ref={audioRef}
